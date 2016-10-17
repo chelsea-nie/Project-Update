@@ -21,7 +21,7 @@ cd $BakDir
 DumpFile=$DATE.sql
 GZDumpFile=$DATE.sql.tgz
 
-mysqldump -h123.206.55.35 -utdrhvip -ptdrhEDU123 --quick --all-databases --flush-logs --flush-privileges --lock-all-tables  > $DumpFile
+mysqldump -hIP -P 3306 -uXXX -pXXX --quick --all-databases --flush-logs --flush-privileges --lock-all-tables  > $DumpFile
 
 echo "Dump Done" >> $LogFile
 
