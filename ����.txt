@@ -1,0 +1,72 @@
+上线
+前台:service-platform-member
+项目位置：/opt/vip-member
+更新前先以要备份的目录名称+当前的时间为格式的tar包，到/mnt/add_disk2/2016-10-14_all_service_bak
+更新版本：
+cd /opt/vip-member/service-platform-member
+git pull origin v1.2
+git branch
+git tag
+git checkout v1.2
+git branch
+跳过此步骤【现已不用执行此步】python manage.py migrate     (一般数据更新很少)
+跳过此步骤【现已不用执行此步】python manage.py collectstatic  （更新图片）
+配置文件：
+/opt/vip-member/service-platform-member/xyt/settings.py  
+（允许主机，连接数据库vip_member，api接口，后台）
+	DATABASES
+	QCOS
+	STATIC_URL
+----------------------------------------------------------------------------------------------------------------------------------
+接口:service_platform
+项目位置：/opt/vip-server/tomcat8/webapps
+更新前先以要备份的目录名称+当前的时间为格式的tar包，到/mnt/add_disk2/2016-10-14_all_service_bak
+同步的文件夹：/opt/vip-server/tomcat8/uploads(现已停用)
+项目为war包
+需要确定版本打包：
+在测试机上面打包的，目录为：/opt/vip-server/project/service-platform-api/
+更新版本：
+git branch 
+git tag
+git pull origin 
+git tag 
+git checkout v1.2 
+git branch 
+git pull origin v1.2
+cd src/main/resources/
+vim application-prod.properties 
+#mvn clean(123.206.55.35<vip3>已做好mvn库，无需执行此步)
+mvn compile war:war
+cd target/
+然后把打好的包放在/opt/vip-server/tomcat8/webapps目录下，待解压完，重启tomcat即可。
+配置文件：/opt/vip-server/tomcat8/webapps/service_platform/WEB-INF/classes/application.properties（配置文件的位置由这个文件决定）
+（数据库service_platform，主句库，redis,es,前段页面地址，文件云）
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+后台：service-platform-employee
+项目位置：/opt/vip-employee/nginx/html
+更新前先以要备份的目录名称+当前的时间为格式的tar包，到/mnt/add_disk2/2016-10-14_all_service_bak
+同步的文件夹：/opt/vip-employee/nginx/html/service-platform-employee/think/Uploads(现已停用同步，所有同步已放置云存储上，但还会用到)
+更新版本：
+git pull origin v1.2
+git branch
+git tag
+git checkout v1.2
+配置文件：
+/opt/vip-employee/nginx/html/service-platform-employee/think/backstage/Common/Conf/config.php
+（连接数据库service_platform，api）
+/opt/vip-employee/nginx/html/service-platform-employee/think/backstage/Common/Conf/config.release.php  (上线的时候复制修改的)
+
+需要在克隆好的代码库目录下创建/opt/vip-employee/nginx/html/service-platform-employee/think/Uploads  chmod 777 Uploads
+/opt/vip-employee/nginx/html/service-platform-employee/think/backstage/Runtime  chmod 777 Runtime
+
+重新导入数据库操作如下：
+先执行/opt/vip-server/tomcat8/webapps/init.sh
+
+
+
+
+
+
+
